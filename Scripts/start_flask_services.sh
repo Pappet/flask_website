@@ -4,7 +4,7 @@
 systemctl start nginx
 
 # Change to directory of flask app
-cd /home/flask_app
+cd /home/flask_website
 
 # Start venv
 source venv/bin/activate

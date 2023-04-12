@@ -8,6 +8,7 @@ cd /home/flask_website/workspace/flask_website/Application
 
 # Start venv
 echo "Activating venv..."
+python3 -m venv venv
 source venv/bin/activate
 
 # Start Gunicorn

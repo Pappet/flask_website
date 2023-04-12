@@ -1,7 +1,17 @@
-from flask import Flask
+from flask import Flask, render_template
+from flask_socketio import SocketIO
+
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'mysecretkey'
+socketio = SocketIO(app)
 
 
 @app.route('/')
-def hello():
-    return 'Hello KIRCHGASSE! Dies ist ein Test!!!'
+def index():
+    return render_template('index.html')
+
+
+@socketio.on('send_message')
+def handle_send_message(message):
+    print('received message:', message)
+    socketio.emit('message', message)

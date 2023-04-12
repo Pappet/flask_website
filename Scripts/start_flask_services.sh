@@ -10,7 +10,7 @@ cd /home/flask_website/workspace/flask_website/Application
 echo "Activating venv..."
 python3 -m venv venv
 
-source /home/flask_website/workspace/flask_website/Application/venv/bin/activate
+. /home/flask_website/workspace/flask_website/Application/venv/bin/activate
 
 # Wait for venv
 sleep 5

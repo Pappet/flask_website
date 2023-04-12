@@ -4,11 +4,7 @@
 systemctl start nginx
 
 # Change to directory of flask app
-<<<<<<< HEAD
-cd /home/jenkins/workspace/flask_website
-=======
 cd /home/jenkins/workspace
->>>>>>> 494506a (Changes)
 
 # Start venv
 source venv/bin/activate

@@ -24,7 +24,8 @@ else
 fi
 
 # Install requirements
-pip install -r /home/flask_website/workspace/flask_website/requirements.txt
+python3 -m pip install Flask
+# pip install -r /home/flask_website/workspace/flask_website/requirements.txt
 
 
 # Start Gunicorn

@@ -7,6 +7,7 @@ systemctl start nginx
 cd /home/jenkins/workspace
 
 # Start venv
+python3 -m venv venv
 source venv/bin/activate
 
 # Start Gunicorn and Flask App

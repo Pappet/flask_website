@@ -15,7 +15,3 @@ def index():
 def handle_send_message(message):
     print('received message:', message)
     socketio.emit('message', message)
-
-
-if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port=5000)

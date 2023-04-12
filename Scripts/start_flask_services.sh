@@ -31,7 +31,7 @@ python3 -m pip install flask-socketio
 
 # Start Gunicorn
 echo "Starting Gunicorn..."
-gunicorn app:app --access-logfile /home/flask_website/workspace/flask_website/logs/gunicorn_access.log --error-logfile /home/flask_website/workspace/flask_website/logs/gunicorn_error.log --log-level info -b 0.0.0.0:8000 --daemon
+gunicorn --worker-class eventlet -w 1 wsgi:app --access-logfile /home/flask_website/workspace/flask_website/logs/gunicorn_access.log --error-logfile /home/flask_website/workspace/flask_website/logs/gunicorn_error.log --log-level info -b 0.0.0.0:8000 --daemon
 
 # Wait for Gunicorn to start
 sleep 5

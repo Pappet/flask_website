@@ -25,7 +25,7 @@ fi
 
 # Install requirements
 python3 -m pip install Flask
-python3 -m pip install flask-socketio
+python3 -m pip install flask_socketio
 python3 -m pip install eventlet
 # pip install -r /home/flask_website/workspace/flask_website/requirements.txt
 

@@ -4,13 +4,13 @@
 systemctl start nginx
 
 # Change to directory of flask app
-cd /home/flask_website/workspace/flask_website/Application
+cd /home/jenkins/workspace/flask_website/Application
 
 # Start venv
 echo "Activating venv..."
 python3 -m venv venv
 
-. /home/flask_website/workspace/flask_website/Application/venv/bin/activate
+. /home/jenkins/workspace/flask_website/Application/venv/bin/activate
 
 # Wait for venv
 sleep 5
@@ -31,7 +31,7 @@ python3 -m pip install flask-socketio
 
 # Start Gunicorn
 echo "Starting Gunicorn..."
-gunicorn --worker-class eventlet -w 1 wsgi:app --access-logfile /home/flask_website/workspace/flask_website/logs/gunicorn_access.log --error-logfile /home/flask_website/workspace/flask_website/logs/gunicorn_error.log --log-level info -b 0.0.0.0:8000 --daemon
+gunicorn --worker-class eventlet -w 1 wsgi:app --access-logfile /home/jenkins/workspace/flask_website/logs/gunicorn_access.log --error-logfile /home/jenkins/workspace/flask_website/logs/gunicorn_error.log --log-level info -b 0.0.0.0:8000 --daemon
 
 # Wait for Gunicorn to start
 sleep 5

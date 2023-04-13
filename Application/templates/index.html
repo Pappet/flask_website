@@ -3,11 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Chat App</title>
-    <script
-      src="/socket.io/socket.io.js"
-      integrity="sha384-toS6mmwu70G0fw54EGlWWeA4z3dyJ+dlXBtSURSKN4vyRFOcxd3Bzjj/AoOwY+Rg"
-      crossorigin="anonymous"
-    ></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
   <body>
@@ -17,7 +13,7 @@
     <button id="send">Send</button>
 
     <script>
-      var socket = io.connect("http://localhost:8000");
+      const socket = io.connect("http://localhost:8000");
 
       socket.on("connect", function () {
         console.log("Connected to the server");

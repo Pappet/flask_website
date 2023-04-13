@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Find the Gunicorn master process PID
-GUNICORN_MASTER_PID=$(pgrep -f "gunicorn app:app" | sort -n | head -n 1)
+GUNICORN_MASTER_PID=$(pgrep -f "gunicorn" | sort -n | head -n 1)
 
 # If the process was found, kill it
 if [ -n "$GUNICORN_MASTER_PID" ]; then

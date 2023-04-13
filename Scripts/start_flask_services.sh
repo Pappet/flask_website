@@ -38,11 +38,12 @@ gunicorn --worker-class eventlet -w 1 wsgi:app --access-logfile /home/jenkins/wo
 sleep 5
  
 # Check if Gunicorn is running
-GUNICORN_PID=$(pgrep -f "gunicorn app:app")
+GUNICORN_PID=$(pgrep -f "gunicorn")
 
 if [ -n "$GUNICORN_PID" ]; then
     echo "Gunicorn is running (PID: $GUNICORN_PID)"
 else
     echo "Gunicorn failed to start. Aborting script."
+    echo "(PID: $GUNICORN_PID)"
     exit 1
 fi

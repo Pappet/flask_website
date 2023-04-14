@@ -17,7 +17,8 @@ pip install -r /home/jenkins/workspace/flask_website/requirements.txt
 
 # Start Gunicorn
 echo "Starting Gunicorn..."
-gunicorn --worker-class eventlet -w 1 wsgi:app --access-logfile /home/jenkins/workspace/flask_website/logs/gunicorn_access.log --error-logfile /home/jenkins/workspace/flask_website/logs/gunicorn_error.log --log-level info -b 0.0.0.0:8000 --daemon
+# gunicorn --worker-class eventlet -w 1 wsgi:app --access-logfile /home/jenkins/workspace/flask_website/logs/gunicorn_access.log --error-logfile /home/jenkins/workspace/flask_website/logs/gunicorn_error.log --log-level info -b 0.0.0.0:8000 --daemon
+nohup gunicorn --worker-class eventlet -w 1 wsgi:app --access-logfile /home/jenkins/workspace/flask_website/logs/gunicorn_access.log --error-logfile /home/jenkins/workspace/flask_website/logs/gunicorn_error.log --log-level info -b 0.0.0.0:8000 &
 
 # Wait for Gunicorn to start
 sleep 5

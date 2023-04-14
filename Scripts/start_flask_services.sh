@@ -11,6 +11,7 @@ cd /home/jenkins/workspace/flask_website/Application
 # python3 -m pip install flask_socketio
 # python3 -m pip install gunicorn==20.1.0 eventlet==0.30.2
 pip uninstall gunicorn
+pip uninstall flask-socketio
 pip uninstall eventlet
 pip install -r /home/jenkins/workspace/flask_website/requirements.txt
 

@@ -19,17 +19,17 @@
         console.log("Connected to the server");
       });
 
-      socket.on("message", function (data) {
-        const messageElement = document.createElement("li");
-        messageElement.innerHTML =
+      socket.on("receive_message", function (data) {
+        var messageElement = $("<p></p>");
+        messageElement.html(
           "<strong>" +
-          data.username +
-          " (" +
-          data.time +
-          "):</strong> " +
-          data.message;
-        messagesList.appendChild(messageElement);
-        messagesList.scrollTop = messagesList.scrollHeight;
+            data.username +
+            " (" +
+            data.time +
+            "):</strong> " +
+            data.message
+        );
+        $("#messages").append(messageElement);
       });
 
       $("#send").on("click", function () {

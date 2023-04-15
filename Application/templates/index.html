@@ -33,12 +33,13 @@
             "):</strong> " +
             data.message
         );
-        console.log(messageElement);
+        console.log("recived: " + messageElement);
         $("#messages").append(messageElement);
       });
 
       $("#send").on("click", function () {
         var message = $("#message").val();
+        console.log("click: " + message);
         socket.emit("send_message", message);
         $("#message").val("");
       });

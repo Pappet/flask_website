@@ -8,6 +8,10 @@
   </head>
   <body>
     <h1>Chat App</h1>
+    <div>
+      <p>Eingeloggt als: <span id="logged-in-user"></span></p>
+    </div>
+
     <input type="text" id="message" placeholder="Type your message..." />
     <button id="send">Send</button>
     <div id="messages"></div>
@@ -29,6 +33,7 @@
             "):</strong> " +
             data.message
         );
+        console.log(messageElement);
         $("#messages").append(messageElement);
       });
 
@@ -36,6 +41,16 @@
         var message = $("#message").val();
         socket.emit("send_message", message);
         $("#message").val("");
+      });
+
+      $(document).ready(function () {
+        // Get the logged-in username and display it
+        $.get("/logged_in_user", function (username) {
+          $("#logged-in-user").text(username);
+        }).fail(function () {
+          alert("Bitte loggen Sie sich ein, um auf den Chat zuzugreifen.");
+          window.location.href = "/login";
+        });
       });
     </script>
   </body>

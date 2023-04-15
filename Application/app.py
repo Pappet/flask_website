@@ -64,6 +64,14 @@ def logout():
     return redirect(url_for('login'))
 
 
+@app.route('/logged_in_user')
+def logged_in_user():
+    if current_user.is_authenticated:
+        return current_user.id
+    else:
+        return '', 401  # Unauthorized
+
+
 @socketio.on('send_message')
 def handle_send_message_event(data):
     # Füge den Benutzernamen zur Nachricht hinzu

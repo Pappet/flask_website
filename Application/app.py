@@ -1,3 +1,4 @@
+import datetime
 from flask import Flask, render_template, redirect, url_for, request
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_socketio import SocketIO
@@ -64,9 +65,12 @@ def logout():
 
 
 @socketio.on('send_message')
-def handle_send_message(message):
-    print('received message:', message)
-    socketio.emit('message', message)
+def handle_send_message_event(data):
+    # Füge den Benutzernamen zur Nachricht hinzu
+    data["username"] = current_user.id
+    # Füge die aktuelle Uhrzeit zur Nachricht hinzu
+    data["time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    socketio.emit('receive_message', data)
 
 
 @login_manager.user_loader

@@ -19,8 +19,17 @@
         console.log("Connected to the server");
       });
 
-      socket.on("message", function (data) {
-        $("#messages").append("<p>" + data + "</p>");
+      socket.on("receive_message", function (data) {
+        const messageElement = document.createElement("li");
+        messageElement.innerHTML =
+          "<strong>" +
+          data.username +
+          " (" +
+          data.time +
+          "):</strong> " +
+          data.message;
+        messagesList.appendChild(messageElement);
+        messagesList.scrollTop = messagesList.scrollHeight;
       });
 
       $("#send").on("click", function () {

@@ -73,11 +73,12 @@ def logged_in_user():
 
 
 @socketio.on('send_message')
-def handle_send_message_event(data):
+def handle_send_message(data):
     # Füge den Benutzernamen zur Nachricht hinzu
     data["username"] = current_user.id
     # Füge die aktuelle Uhrzeit zur Nachricht hinzu
     data["time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    print(data)
     socketio.emit('receive_message', data)
 
 

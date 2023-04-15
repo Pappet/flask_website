@@ -9,7 +9,8 @@ import os
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
 # You can use other database systems like PostgreSQL or MySQL
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///postgres:POSTnP145A18@192.168.178.37/flask_website'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///postgres:POSTnP145A18@192.168.178.37/flask_website'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 bcrypt = Bcrypt(app)

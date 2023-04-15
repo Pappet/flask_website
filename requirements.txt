@@ -6,4 +6,4 @@ flask-login
 flask-sqlalchemy 
 flask-migrate
 flask-bcrypt
-psycopg2
+# psycopg2

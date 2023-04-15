@@ -7,9 +7,6 @@ systemctl start nginx
 cd /home/jenkins/workspace/flask_website/Application
 
 # Install requirements
-# python3 -m pip install Flask
-# python3 -m pip install flask_socketio
-# python3 -m pip install gunicorn==20.1.0 eventlet==0.30.2
 pip install -r /home/jenkins/workspace/flask_website/requirements.txt
 
 export FLASK_APP=app.py  # On Linux or macOS

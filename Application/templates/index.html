@@ -41,7 +41,7 @@
       $("#send").on("click", function () {
         var message = $("#message").val();
         console.log("click: " + message);
-        socket.emit("send_message", message);
+        socket.emit("send_message", { message: message });
         $("#message").val("");
       });
 

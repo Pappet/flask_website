@@ -79,7 +79,7 @@ def handle_send_message(message):
     # Füge die aktuelle Uhrzeit zur Nachricht hinzu
     message["time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(message)
-    socketio.emit('message', message)
+    socketio.emit('recive_message', message)
 
 
 @login_manager.user_loader

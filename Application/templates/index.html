@@ -23,7 +23,7 @@
         console.log("Connected to the server");
       });
 
-      socket.on("message", function (data) {
+      socket.on("recive_message", function (data) {
         console.log("recived: " + data);
         var messageElement = $("<p></p>");
         messageElement.html(

@@ -11,9 +11,9 @@ pip install -r /home/jenkins/workspace/flask_website/requirements.txt
 
 export FLASK_APP=app.py  # On Linux or macOS
 
-# flask db init
-# flask db migrate -m "Initial migration"
-# flask db upgrade
+flask db init
+flask db migrate -m "Initial migration"
+flask db upgrade
 
 # Start Gunicorn
 echo "Starting Gunicorn..."

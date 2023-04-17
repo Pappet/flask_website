@@ -10,6 +10,7 @@
     <h1>Chat App</h1>
     <div>
       <p>Eingeloggt als: <span id="logged-in-user"></span></p>
+      <a href="{{ url_for('main.logout') }}">Ausloggen</a>
     </div>
 
     <input type="text" id="message" placeholder="Type your message..." />
@@ -31,9 +32,9 @@
             data.username +
             "</strong>: " +
             data.message +
-            " <small>" +
+            " <small>(" +
             data.time +
-            "</small>"
+            ")</small>"
         );
         console.log("recived: " + messageElement);
         $("#messages").append(messageElement);

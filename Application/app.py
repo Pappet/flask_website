@@ -29,7 +29,7 @@ app.register_blueprint(main_blueprint)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'main_blueprint.login'
+login_manager.login_view = 'main.login'
 
 
 @app.errorhandler(404)

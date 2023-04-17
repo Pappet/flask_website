@@ -1,11 +1,16 @@
-import datetime
-from flask import Flask, render_template, redirect, url_for, request
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from blueprints.main.main import main_blueprint
+from datetime import datetime
+from flask import Flask, render_template
+from flask_login import LoginManager, current_user
 from flask_socketio import SocketIO
-from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
+from flask_sqlalchemy import SQLAlchemy
+from models import User
+from extensions import db, bcrypt
+
 import os
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
@@ -14,71 +19,35 @@ app.config['SECRET_KEY'] = os.urandom(24)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-bcrypt = Bcrypt(app)
-db = SQLAlchemy(app)
+db.init_app(app)
+bcrypt.init_app(app)
 migrate = Migrate(app, db)
+socketio = SocketIO(app)
+
+# Importieren und Registrieren des Blueprints
+app.register_blueprint(main_blueprint)
+
 login_manager = LoginManager()
 login_manager.init_app(app)
-socketio = SocketIO(app)
-login_manager.login_view = 'login'
+login_manager.login_view = 'main_blueprint.login'
 
 
-@app.route('/')
-@login_required
-def index():
-    return render_template('index.html')
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        user = User.query.filter_by(id=username).first()
-        if user and bcrypt.check_password_hash(user.password, password):
-            login_user(user)
-            return redirect(url_for('index'))
-        else:
-            return 'Invalid username or password'
-    return render_template('login.html')
-
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        hashed_password = bcrypt.generate_password_hash(
-            password).decode('utf-8')
-        user = User(id=username, password=hashed_password)
-        db.session.add(user)
-        db.session.commit()
-        return redirect(url_for('login'))
-    return render_template('register.html')
-
-
-@app.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('login'))
-
-
-@app.route('/logged_in_user')
-def logged_in_user():
-    if current_user.is_authenticated:
-        return current_user.id
-    else:
-        return '', 401  # Unauthorized
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template('500.html'), 500
 
 
 @socketio.on('send_message')
 def handle_send_message(message):
     # Füge den Benutzernamen zur Nachricht hinzu
-    message["username"] = current_user.id
+    message["username"] = current_user.username
     # Füge die aktuelle Uhrzeit zur Nachricht hinzu
     message["time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    print(message)
     socketio.emit('recive_message', message)
 
 
@@ -87,6 +56,5 @@ def load_user(user_id):
     return User.query.get(user_id)
 
 
-class User(UserMixin, db.Model):
-    id = db.Column(db.String(80), primary_key=True)
-    password = db.Column(db.String(80), nullable=False)
+if __name__ == '__main__':
+    socketio.run(app, host='0.0.0.0', port=5000, debug=True)

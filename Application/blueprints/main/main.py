@@ -1,5 +1,5 @@
 # blueprints/main.py
-from flask import Blueprint, render_template, redirect, url_for, request, flash, abort, jsonify
+from flask import Blueprint, render_template, redirect, url_for, request, flash, abort, jsonify, escape
 from flask_login import login_user, login_required, logout_user
 from extensions import db, bcrypt
 from models import User, Message
@@ -16,8 +16,8 @@ def index():
 @main_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+        username = escape(request.form['username'])
+        password = escape(request.form['password'])
         user = User.query.filter_by(username=username).first()
         if user and bcrypt.check_password_hash(user.password, password):
             login_user(user)
@@ -30,8 +30,8 @@ def login():
 @main_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+        username = escape(request.form['username'])
+        password = escape(request.form['password'])
         hashed_password = bcrypt.generate_password_hash(
             password).decode('utf-8')
         new_user = User(username=username, password=hashed_password)

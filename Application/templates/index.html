@@ -56,8 +56,9 @@
       // Funktion zum Senden der Nachricht
       function sendMessage() {
         var message = $("#message").val();
-        console.log("click: " + message);
-        socket.emit("send_message", { message: message });
+        var escapedMessage = $("<div>").text(message).html(); // Bereinigen der Nachricht
+        console.log("click: " + escapedMessage);
+        socket.emit("send_message", { message: escapedMessage });
         $("#message").val("");
       }
 

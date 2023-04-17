@@ -55,11 +55,16 @@
 
       // Funktion zum Senden der Nachricht
       function sendMessage() {
-        var message = $("#message").val();
-        var escapedMessage = $("<div>").text(message).html(); // Bereinigen der Nachricht
-        console.log("click: " + escapedMessage);
-        socket.emit("send_message", { message: escapedMessage });
-        $("#message").val("");
+        var message = $("#message").val().trim();
+        // Überprüfen Sie, ob die Nachricht mindestens ein Zeichen enthält
+        if (message.length > 0) {
+          var escapedMessage = $("<div>").text(message).html(); // Bereinigen der Nachricht
+          socket.emit("send_message", { message: escapedMessage });
+          $("#message").val("");
+        } else {
+          // Optionale Benachrichtigung für den Benutzer, wenn die Nachricht leer ist
+          alert("Bitte geben Sie eine Nachricht ein.");
+        }
       }
 
       function loadMessages() {

@@ -28,11 +28,11 @@
         var messageElement = $("<p></p>");
         messageElement.html(
           "<strong>" +
-            message.username +
+            data.username +
             "</strong>: " +
-            message.message +
+            data.message +
             " <small>" +
-            message.time +
+            data.time +
             "</small>"
         );
         console.log("recived: " + messageElement);

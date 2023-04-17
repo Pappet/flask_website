@@ -6,6 +6,8 @@ from flask_socketio import SocketIO
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf.csrf import CSRFProtect
+
 from models import User, Message
 from extensions import db, bcrypt
 
@@ -21,6 +23,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 bcrypt.init_app(app)
+csrf = CSRFProtect(app)
 migrate = Migrate(app, db)
 socketio = SocketIO(app)
 

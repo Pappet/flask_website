@@ -59,6 +59,30 @@
         $("#message").val("");
       }
 
+      function loadMessages() {
+        $.getJSON("/get_messages", function (messages) {
+          for (var i = 0; i < messages.length; i++) {
+            var message = messages[i];
+            // Fügen Sie den Code zum Anzeigen der Nachrichten hier ein.
+            // Zum Beispiel:
+            var messageHtml =
+              "<p><strong>" +
+              message.username +
+              "</strong>: " +
+              message.message +
+              " <small>" +
+              message.time +
+              "</small></p>";
+            $("#messages").append(messageHtml);
+          }
+        });
+      }
+
+      // Rufen Sie die loadMessages-Funktion auf, wenn die Seite geladen wird
+      $(document).ready(function () {
+        loadMessages();
+      });
+
       $(document).ready(function () {
         // Get the logged-in username and display it
         $.get("/logged_in_user", function (username) {

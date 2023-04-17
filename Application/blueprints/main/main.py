@@ -1,8 +1,8 @@
 # blueprints/main.py
-from flask import Blueprint, render_template, redirect, url_for, request, flash, abort
+from flask import Blueprint, render_template, redirect, url_for, request, flash, abort, jsonify
 from flask_login import login_user, login_required, logout_user
 from extensions import db, bcrypt
-from models import User
+from models import User, Message
 
 main_blueprint = Blueprint('main', __name__)
 
@@ -55,3 +55,17 @@ def logged_in_user():
         return str(current_user.username)  # Convert the integer to a string
     else:
         abort(401)  # Unauthorized
+
+
+@main_blueprint.route('/get_messages')
+@login_required
+def get_messages():
+    messages = Message.query.order_by(Message.timestamp).all()
+    messages_json = []
+    for message in messages:
+        messages_json.append({
+            "username": message.username,
+            "message": message.content,
+            "time": message.timestamp.strftime("%Y-%m-%d %H:%M:%S")
+        })
+    return jsonify(messages_json)

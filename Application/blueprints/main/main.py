@@ -26,7 +26,7 @@ def login():
             return redirect(url_for('main.index'))
         else:
             flash('Invalid username or password')
-    return render_template('login.html')
+    return render_template('login.html', form=form)
 
 
 @main_blueprint.route('/register', methods=['GET', 'POST'])
@@ -41,7 +41,7 @@ def register():
         db.session.add(new_user)
         db.session.commit()
         return redirect(url_for('main.login'))
-    return render_template('register.html')
+    return render_template('register.html', form=form)
 
 
 @main_blueprint.route('/logout')

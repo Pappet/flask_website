@@ -1,5 +1,5 @@
 # blueprints/main.py
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash, abort
 from flask_login import login_user, login_required, logout_user
 from extensions import db, bcrypt
 from models import User
@@ -54,4 +54,4 @@ def logged_in_user():
     if current_user.is_authenticated:
         return str(current_user.username)  # Convert the integer to a string
     else:
-        return 'Unauthorized', 401  # Unauthorized
+        abort(401)  # Unauthorized

@@ -1,6 +1,7 @@
 from flask_login import UserMixin
 from sqlalchemy.schema import UniqueConstraint
 from extensions import db
+from datetime import datetime
 
 
 class User(UserMixin, db.Model):
@@ -16,3 +17,11 @@ class User(UserMixin, db.Model):
 
     def get_id(self):
         return str(self.id)
+
+
+class Message(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), nullable=False)
+    content = db.Column(db.String(500), nullable=False)
+    timestamp = db.Column(
+        db.DateTime, nullable=False, default=datetime.utcnow)

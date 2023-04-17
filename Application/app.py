@@ -6,7 +6,7 @@ from flask_socketio import SocketIO
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
-from models import User
+from models import User, Message
 from extensions import db, bcrypt
 
 import os
@@ -53,6 +53,13 @@ def handle_send_message(message):
     message["username"] = current_user.username
     # Füge die aktuelle Uhrzeit zur Nachricht hinzu
     message["time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    # Erstelle ein neues Message-Objekt und speichere es in der Datenbank
+    new_message = Message(username=message["username"], content=message["message"],
+                          timestamp=datetime.strptime(message["time"], "%Y-%m-%d %H:%M:%S"))
+    db.session.add(new_message)
+    db.session.commit()
+
     socketio.emit('recive_message', message)
 
 

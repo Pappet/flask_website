@@ -38,12 +38,26 @@
         $("#messages").append(messageElement);
       });
 
+      // Event-Listener für das Klicken auf den Senden-Button
       $("#send").on("click", function () {
+        sendMessage();
+      });
+
+      // Event-Listener für das Drücken der Enter-Taste im Texteingabefeld
+      $("#message").on("keydown", function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault(); // Verhindern Sie das Standardverhalten (Zeilenumbruch)
+          sendMessage(); // Rufen Sie die Funktion zum Senden der Nachricht auf
+        }
+      });
+
+      // Funktion zum Senden der Nachricht
+      function sendMessage() {
         var message = $("#message").val();
         console.log("click: " + message);
         socket.emit("send_message", { message: message });
         $("#message").val("");
-      });
+      }
 
       $(document).ready(function () {
         // Get the logged-in username and display it

@@ -71,7 +71,7 @@
         );
         console.log("recived: " + messageElement);
         $("#messages").append(messageElement);
-        $("#messages").scrollTop(400);
+        $("#messages").scrollTop = 0;
       });
 
       // Event-Listener für das Klicken auf den Senden-Button
@@ -118,7 +118,7 @@
               "</small></p>";
             $("#messages").prepend(messageHtml);
           }
-          $("#messages").scrollTop(400); // Add this line to set the scrollbar to the top after loading messages
+          $("#messages").scrollTop = 0; // Add this line to set the scrollbar to the top after loading messages
         });
       }
 

@@ -102,6 +102,7 @@
       function loadMessages() {
         $.getJSON("/get_messages", function (messages) {
           for (var i = messages.length - 1; i >= 0; i--) {
+            // reverse tehe order
             var message = messages[i];
             // Fügen Sie den Code zum Anzeigen der Nachrichten hier ein.
             // Zum Beispiel:

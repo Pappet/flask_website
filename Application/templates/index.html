@@ -15,6 +15,14 @@
     <title>Chat App</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.0/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+      #messages {
+        display: flex;
+        flex-direction: column-reverse;
+        overflow-y: auto;
+        max-height: 400px;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -61,7 +69,7 @@
             ")</small>"
         );
         console.log("recived: " + messageElement);
-        $("#messages").append(messageElement);
+        $("#messages").prepend(messageElement);
       });
 
       // Event-Listener für das Klicken auf den Senden-Button
@@ -93,7 +101,7 @@
 
       function loadMessages() {
         $.getJSON("/get_messages", function (messages) {
-          for (var i = 0; i < messages.length; i++) {
+          for (var i = messages.length - 1; i >= 0; i--) {
             var message = messages[i];
             // Fügen Sie den Code zum Anzeigen der Nachrichten hier ein.
             // Zum Beispiel:

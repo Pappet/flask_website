@@ -21,6 +21,7 @@
         flex-direction: column-reverse;
         overflow-y: auto;
         max-height: 400px;
+        scroll-behavior: smooth;
       }
     </style>
   </head>
@@ -70,6 +71,7 @@
         );
         console.log("recived: " + messageElement);
         $("#messages").append(messageElement);
+        $("#messages").scrollTop(0);
       });
 
       // Event-Listener für das Klicken auf den Senden-Button
@@ -116,6 +118,7 @@
               "</small></p>";
             $("#messages").prepend(messageHtml);
           }
+          $("#messages").scrollTop(0); // Add this line to set the scrollbar to the top after loading messages
         });
       }
 
